@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品檢查項目篩選</title>
+    <link rel="stylesheet" href="WEBTEST.css">
+    <style>
+        body {
+            text-align: center; /* 讓所有文字置中 */
+            font-family: Arial, sans-serif;
+        }
+        section {
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left; /* 區塊內文左對齊 */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            text-align: center; /* 標題置中 */
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+  <h1>產品檢查項目</h1>
+  <!-- 導覽列 -->
+  <nav>
+    <ul>
+        <li><a href="web_brickeyehome_user.html">首頁</a></li>
+        <li><a href="web_IDTime_user.html">搜尋</a></li>
+        <li><a href="web_quantity_user.html">品質篩檢</a></li>
+        <li><a href="web_model_user.html">數據模型</a></li>
+        <li><a href="web_graph_user.html">儀表板</a></li>
+        <li><a href="logout.html">登出</a></li>
+    </ul>
+</nav>
+<br>
+    <h3>篩選條件</h3>
+    <div class="quality-container">
+        <label for="quality">品質:</label>
+        <select id="quality">
+            <option value="">所有</option>
+            <option value="良品">良品</option>
+            <option value="劣質品">劣質品</option>
+        </select>
+    </div>
+    
+
+    <h4>缺陷:</h4>
+    <div class="checkbox-group">
+        <!-- <label><input type="checkbox" value="積木面積" id="defect-brick">積木面積</label> -->
+        <label><input type="checkbox" value="裁切" id="defect-cut">裁切</label>
+        <label><input type="checkbox" value="划痕" id="defect-scratch">划痕</label>
+        <label><input type="checkbox" value="汙點" id="defect-stain">汙點</label>
+        <label><input type="checkbox" value="顏色汙染" id="defect-color">顏色汙染</label>
+        <label><input type="checkbox" value="大範圍污痕" id="defect-pollution">大範圍污痕</label>
+    </div>
+    <br>
+    <!-- 添加选择开始和结束记录的输入框 -->
+    <div class="filter-container">
+        <label for="startTime">開始時間:</label>
+        <input type="datetime-local" id="startTime">
+
+        <label for="endTime">結束時間:</label>
+        <input type="datetime-local" id="endTime">
+        <label for="start">起始資料:</label>
+        <input type="number" id="start" name="start" min="0" value="0">
+    
+        <label for="end">結束資料:</label>
+        <input type="number" id="end" name="end" min="1" value="50">
+        <br>
+        
+        <button id="filterBtn">篩選</button>
+    </div>
+    
+
+    <div id="countting">正在加載...</div>
+    <script>
+        async function fetchProductCount() {
+          try {
+            const response = await fetch('http://localhost:3001/api/product-count');
+            const data = await response.json();
+            document.getElementById('countting').innerText = `符合條件產品數量:${data.count}`;
+          } catch (error) {
+            console.error('獲取數據失敗', error);
+            document.getElementById('countting').innerText = '無法獲取數據';
+          }
+        }
+    
+        // 加載數據
+        fetchProductCount();
+      </script>
+    <!-- <div id="countting">正在加載...</div> -->
+
+
+    <h3>檢查項目列表</h3>
+
+    <table id="productsTable">
+        <thead>
+            <tr>
+                <th>產品ID</th>
+                <th>品質</th>
+                <th>缺陷</th>
+                <th>檢測時間</th>
+                <th>圖片</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 產品資料將會顯示在這裡 -->
+        </tbody>
+    </table>
+
+
+
+</script>
+
+
+    <script src="Main.js"></script>
+    <!-- <script src="ID.js"></script> -->
+    <!-- <script src="Time.js"></script> -->
+
+
+</body>
+</html>

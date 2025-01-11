@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品檢查項目篩選</title>
+    <link rel="stylesheet" href="WEBTEST.css">
+    <style>
+        body {
+            text-align: center; /* 讓所有文字置中 */
+            font-family: Arial, sans-serif;
+        }
+        section {
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left; /* 區塊內文左對齊 */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            text-align: center; /* 標題置中 */
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+    </style>
+
+</head>
+
+<body>
+  <h1>產品檢查項目</h1>
+  <!-- 導覽列 -->
+  <nav>
+    <ul>
+        <li><a href="web_brickeyehome_user.html">首頁</a></li>
+        <li><a href="web_IDTime_user.html">搜尋</a></li>
+        <li><a href="web_quantity_user.html">品質篩檢</a></li>
+        <li><a href="web_model_user.html">數據模型</a></li>
+        <li><a href="web_graph_user.html">儀表板</a></li>
+        <li><a href="logout.html">登出</a></li>
+    </ul>
+</nav>
+<!-- 區塊介紹 -->
+<section>
+    <hr>
+    <h2>搜尋區塊</h2>
+    <p>功能: 依據時間區間顯示該時間段的檢測品詳細數據，並可透過選取特定 ID 檢測單一品項進行隨機抽樣。</p>
+    <p>同時顯示當前選取時間段的:</p>
+    <ul>
+        <li>產品總數：</li>
+        <li>良品總數：</li>
+        <li>劣質品總數：</li>
+        <li>劣質品比率：</li>
+    </ul>
+    <p>以確認總體是否產生過多缺陷品</p>
+    <hr>
+
+    <h2>品質篩檢區塊</h2>
+    <p>功能: 依據選取特定條件顯示出包含符合條件的產品 (例如品質為良品就只會顯示良品)，並設置限定資料顯示功能(初始設置50筆)，避免過量資料載入的情況。可透過調整起始、結束資料數字顯示特定段列的資訊。</p>
+    <hr>
+    <h2>儀錶板區塊</h2>
+    <p>功能: 確認缺陷時間序列 (Time Series) 圖表，以下包含:</p>
+    <ul>
+        <li>當前時間一小時內的缺陷數量，並展現出最高峰缺陷數量的三個時段以利檢查</li>
+        <li>當前時間六小時內缺陷嚴重超標 (以每五分鐘為一個區間)，採用Grafana即時監測警告，並加入警告失靈時的預備措施(超標可視化，這裡設置為>=10)</li>
+        <li>當前時間二十四小時內缺陷數量，可以確認當日整體的缺陷品產出頻率，並依據需求縮放進行確認</li>
+        <li>依據時間區間獲取缺陷數量趨勢圖，如第三張圖表的功能，但是可以透過選取時間區間檢查特定的日期</li>
+    </ul>
+    <hr>
+
+    <h2>數據模型區塊</h2>
+    <p>功能: 展現訓練數據的模型折線圖，並比對現在和過去的缺陷檢測模型，確認哪個為較優的選項</p>
+    <hr>
+
+    <!-- <h2>人員管理系統區塊</h2>
+    <p>功能: 可以新增、刪除、修改使用者名稱和密碼 。如重複名稱的帳號將無法進行新增。</p> -->
+</section>
+
+
+
+
+    <script src="Main.js"></script>
+    <script src="ID.js"></script>
+    <script src="Time.js"></script>
+
+
+</body>
+</html>

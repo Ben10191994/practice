@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理後台</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="logoutContainer">
+        <button id="logoutButton">登出</button>
+    </div>
+    <h2>新增使用者</h2>
+    <form id="addUserForm">
+        <label>帳號: <input type="text" id="account"></label><br>
+        <label>密碼: <input type="text" id="password"></label><br>
+        <label>權限: <input type="text" id="permissions"></label><br>
+        <button type="submit">新增使用者</button>
+    </form>
+
+    <h2>管理後台 - 使用者資料</h2>
+    <!-- <button id="loadUsers">載入使用者資料</button> -->
+    
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>帳號 (Account)</th>
+                <th>密碼 (Password)</th>
+                <th>權限 (Permissions)</th>
+                <th>保存修改資訊 (Action)</th>
+                <th>刪除使用者 (Action)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 使用 JavaScript 更新表格內容 -->
+        </tbody>
+    </table>
+    <script>
+        // 登出按鈕事件處理
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            // 指向指定的登出頁面
+            window.location.href = '../Final/logout.html'; // 替換為實際的 URL
+        });
+    </script>
+
+    <script src="server.js"></script>
+
+</body>
+</html>
+

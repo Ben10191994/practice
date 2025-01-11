@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理後台</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            text-align: center; /* 讓所有文字置中 */
+            font-family: Arial, sans-serif;
+        }
+        section {
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left; /* 區塊內文左對齊 */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            text-align: center; /* 標題置中 */
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>人員管理系統</h1>
+    <!-- 導覽列 -->
+    <nav>
+    <ul>
+        <li><a href="web_brickeyehome_user.html">首頁</a></li>
+        <li><a href="web_IDTime_user.html">搜尋</a></li>
+        <li><a href="web_quantity_user.html">品質篩檢</a></li>
+        <li><a href="web_model_user.html">數據模型</a></li>
+        <li><a href="web_graph_user.html">儀表板</a></li>
+        <li><a href="logout.html">登出</a></li>
+    </ul>
+</nav>
+    <h2>新增使用者</h2>
+    <form id="addUserForm">
+        <label>帳號: <input type="text" id="account"></label><br>
+        <label>密碼: <input type="text" id="password"></label><br>
+        <label>權限: <input type="text" id="permissions"></label><br>
+        <button type="submit">新增使用者</button>
+    </form>
+
+    <h2>管理後台 - 使用者資料</h2>
+    <!-- <button id="loadUsers">載入使用者資料</button> -->
+    
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>帳號 (Account)</th>
+                <th>密碼 (Password)</th>
+                <th>權限 (Permissions)</th>
+                <th>保存修改資訊 (Action)</th>
+                <th>刪除使用者 (Action)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 使用 JavaScript 更新表格內容 -->
+        </tbody>
+    </table>
+
+    <script src="server.js"></script>
+
+</body>
+</html>
+

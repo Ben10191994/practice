@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品檢查項目篩選</title>
+    <link rel="stylesheet" href="WEBTEST.css">
+
+</head>
+
+<body>
+  <h1>搜尋區塊</h1>
+  <!-- 導覽列 -->
+  <nav>
+    <ul>
+        <li><a href="web_brickeyehome_user.html">首頁</a></li>
+        <li><a href="admin-dashboard.html">人員管理系統</a></li>
+        <li><a href="web_IDTime_user.html">搜尋</a></li>
+        <li><a href="web_quantity_user.html">品質篩檢</a></li>
+        <li><a href="web_model_user.html">數據模型</a></li>
+        <li><a href="web_graph_user.html">儀表板</a></li>
+        <li><a href="logout.html">登出</a></li>
+    </ul>
+</nav>
+
+<h3>篩檢資訊</h3>
+
+<div id="totalCount">正在加載...</div>
+<div id="goodCount">正在加載...</div>
+<div id="defectiveCount">正在加載...</div>
+<div id="defectiveRate">正在加載...</div>
+<!-- 新增搜尋產品ID的輸入框和按鈕 -->
+<div>
+    <input type="text" id="productId" placeholder="輸入產品ID" />
+    <button id="searchProductBtn">搜尋產品</button>
+</div>
+
+<!-- 新增時間範圍搜尋的輸入框 -->
+<div>
+    <label for="start-Time">開始時間：</label>
+    <input type="datetime-local" id="start-Time" />
+
+    <label for="end-Time">結束時間：</label>
+    <input type="datetime-local" id="end-Time" />
+
+    <button id="timeSearchBtn">搜尋</button>
+</div>
+<br>
+<!-- 清除按钮 -->
+<button id="clear-btn">清除資料</button>
+<br>
+
+<div id="searchResult">
+  <table>
+    <thead>
+      <tr>
+        <th>產品ID</th>
+        <th>品質</th>
+        <th>缺陷</th>
+        <th>檢測時間</th>
+        <th>圖片資料</th>
+      </tr>
+    </thead>
+    <tbody id="resultTableBody">
+      <!-- 查詢結果將在此動態插入 -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  
+  async function fetchProductCount() {
+    try {
+      const response = await fetch('http://localhost:3001/api/product-counts');
+      const data = await response.json();
+      document.getElementById('totalCount').innerText = `產品總數：${data.good+data.defective}`;
+      document.getElementById('goodCount').innerText = `良品總數：${data.good}`;
+      document.getElementById('defectiveCount').innerText = `劣質品總數：${data.defective}`;
+      document.getElementById('defectiveRate').innerText = `劣質品比率：${data.defectiveRate}%`;
+    } catch (error) {
+      console.error('獲取數據失敗', error);
+      document.getElementById('goodCount').innerText = '無法獲取數據';
+      document.getElementById('defectiveCount').innerText = '無法獲取數據';
+      document.getElementById('defectiveRate').innerText = '無法獲取數據';
+    }
+  }
+
+  fetchProductCount();
+</script>
+<br>
+
+
+    <!-- <script src="Main.js"></script> -->
+    <script src="ID.js"></script>
+    <script src="Time.js"></script>
+
+
+</body>
+</html>

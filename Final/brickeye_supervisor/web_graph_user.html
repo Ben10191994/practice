@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品檢查項目篩選</title>
+    <link rel="stylesheet" href="WEBTEST.css">
+
+</head>
+
+<body>
+  <h1>儀錶板區塊</h1>
+  <!-- 導覽列 -->
+  <nav>
+    <ul>
+        <li><a href="web_brickeyehome_user.html">首頁</a></li>
+        <li><a href="admin-dashboard.html">人員管理系統</a></li>
+        <li><a href="web_IDTime_user.html">搜尋</a></li>
+        <li><a href="web_quantity_user.html">品質篩檢</a></li>
+        <li><a href="web_model_user.html">數據模型</a></li>
+        <li><a href="web_graph_user.html">儀表板</a></li>
+        <li><a href="logout.html">登出</a></li>
+    </ul>
+</nav>
+
+  <!-- 第一Grafana圖表 -->
+  <h2>最近一小時缺陷數</h2>
+  <iframe 
+    id="grafana-iframe-one-hour" 
+    width="100%" 
+    height="400" 
+    frameborder="0">
+  </iframe>
+  
+  <!-- 第二Grafana圖表 -->
+  <h2>六小時內超標缺陷(每五分鐘缺陷數)</h2>
+  <iframe 
+    id="grafana-iframe-six-hours" 
+    width="100%" 
+    height="400" 
+    frameborder="0">
+  </iframe>
+  
+  <!-- 第三Grafana圖表 -->
+  <h2>最近24小時缺陷數</h2>
+  <iframe 
+    id="grafana-iframe-twenty-four-hours" 
+    width="100%" 
+    height="400" 
+    frameborder="0">
+  </iframe>
+
+  <script>
+    // 动态计算时间范围
+    const currentTime = Date.now(); // 当前时间（毫秒）
+    const oneHourAgo = currentTime - 60 * 60 * 1000; // 一小时前
+    const sixHoursAgo = currentTime - 6 * 60 * 60 * 1000; // 六小时前
+    const twentyFourHoursAgo = currentTime - 24 * 60 * 60 * 1000; // 二十四小时前
+    
+  
+    // 设置各个 iframe 的链接
+    document.getElementById('grafana-iframe-one-hour').src = 
+      `http://localhost:8088/d-solo/de75hzjd19d6of/ee4e6de?orgId=1&from=${oneHourAgo}&to=${currentTime}&timezone=browser&panelId=1&refresh=5s&__feature.dashboardSceneSolo`;
+  
+    document.getElementById('grafana-iframe-six-hours').src = 
+      `http://localhost:8088/d-solo/ce75bgkb3k740c/a6c3f59?orgId=1&from=${sixHoursAgo}&to=${currentTime}&timezone=browser&panelId=1&refresh=5s&__feature.dashboardSceneSolo`;
+  
+    document.getElementById('grafana-iframe-twenty-four-hours').src = 
+      `http://localhost:8088/d-solo/ae6ks2hlkywaoa/fde5fef?orgId=1&from=${twentyFourHoursAgo}&to=${currentTime}&timezone=browser&panelId=1&refresh=5s&__feature.dashboardSceneSolo`;
+  </script>
+  <h2>缺陷時段查詢</h2>
+  <!-- 日期选择器 -->
+  <div style="margin-bottom: 20px;">
+    <label for="datepicker">選擇日期範圍:</label>
+    <input type="text" id="datepicker" placeholder="選擇開始與結束日期與時間" style="padding: 5px; width: 300px;">
+  </div>
+  <!-- 第四Grafana 图表 -->
+  <iframe id="grafana-iframe" 
+  width="100%" 
+  height="400" 
+  frameborder="0">
+  </iframe>
+
+  <script>
+  // 设置 Grafana 的嵌入链接
+  const grafanaUrl = `http://localhost:8088/d-solo/ae6ks2hlkywaoa/fde5fef?orgId=1&from=${twentyFourHoursAgo}&to=${currentTime}&timezone=browser&panelId=1&__feature.dashboardSceneSolo`;
+
+  // 动态设置 iframe 的 src 属性
+  document.getElementById('grafana-iframe').src = grafanaUrl;
+  </script>
+
+    
+  
+  <!-- 引入 Flatpickr -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  
+  <!-- 日期选择器 -->
+  <!-- <input type="text" id="datepicker" placeholder="选择日期范围" /> -->
+  
+  <script>
+    // 使用 flatpickr 初始化日期选择器
+    flatpickr("#datepicker", {
+      mode: "range", // 启用范围选择模式
+      enableTime: true, // 启用时间选择
+      dateFormat: "Y-m-d H:i", // 格式化日期与时间显示
+      time_24hr: true, // 24 小时制
+      onChange: function(selectedDates, dateStr, instance) {
+        if (selectedDates.length === 2) { // 确保选择了开始和结束日期与时间
+          // 获取选中的开始和结束时间的时间戳
+          let from = new Date(selectedDates[0]).getTime();
+          let to = new Date(selectedDates[1]).getTime();
+  
+          // 更新 Grafana iframe 的 URL，控制时间范围
+          let grafanaIframe = document.getElementById("grafana-iframe");
+          let grafanaSrc = `http://localhost:8088/d-solo/ae6ks2hlkywaoa/fde5fef?orgId=1&from=${from}&to=${to}&timezone=browser&panelId=1&__feature.dashboardSceneSolo`;
+          grafanaIframe.src = grafanaSrc;  // 刷新 iframe 内容
+        }
+      }
+    });
+  </script>
+  
+    <script src="Main.js"></script>
+    <script src="ID.js"></script>
+    <script src="Time.js"></script>
+
+
+</body>
+</html>

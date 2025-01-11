@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登出頁面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>您已成功登出</h1>
+        <p>即將跳轉至首頁...</p>
+    </div>
+    <script>
+        // 假設登出後需要跳轉到首頁
+        setTimeout(() => {
+            window.location.href = '../brickeye_visitor/web_home.html'; // 跳轉到指定頁面
+        }, 3000); // 3秒後自動跳轉
+    </script>
+</body>
+</html>

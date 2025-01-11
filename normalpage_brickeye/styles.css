@@ -1,0 +1,116 @@
+/* 重設 body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #B0B0B0; /* 設置頁面背景為銀灰色 */
+}
+
+/* 導覽列樣式 */
+nav {
+    background-color: #333;
+    padding: 10px;
+    width: 100%;  /* 使導航欄佔據整個寬度 */
+    display: flex;
+    justify-content: center;  /* 水平置中導航項目 */
+    margin-bottom: 20px;      /* 讓導航列與下方內容有適當間距 */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;  /* 水平排列導航項目 */
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* 主體內容 */
+h1, h2, h3, h4 {
+    text-align: center; /* 讓標題置中 */
+}
+
+/* 使用 absolute 定位，使 section 居中 */
+section {
+    position: absolute;  /* 使用絕對定位 */
+    top: 50%;  /* 垂直居中 */
+    left: 50%; /* 水平居中 */
+    transform: translate(-50%, -50%); /* 調整偏移，使 section 的中心對齊頁面中心 */
+    padding: 20px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* 控制內容區域的最大寬度 */
+    width: 80%; /* 控制內容區域的寬度 */
+}
+
+h1, h2 {
+    color: #333;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    margin: 10px 0;
+    width: 80%;  /* 限制輸入框的寬度 */
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* 頁面內容 */
+section {
+    padding: 20px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    display: block;  /* 設置為塊級元素 */
+    margin: 0 auto;  /* 水平居中 */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+

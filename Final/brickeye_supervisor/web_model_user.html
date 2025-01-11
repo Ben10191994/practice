@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品檢查項目篩選</title>
+    <link rel="stylesheet" href="WEBTEST.css">
+    <style>
+        /* Flexbox 佈局，每行顯示兩個不同的圖表 */
+        .grafana-container {
+            display: flex;
+            flex-wrap: wrap;  /* 允許換行 */
+            gap: 20px;  /* 設定圖表間距 */
+        }
+
+        .grafana-container iframe {
+            width: 48%;  /* 默認寬度 50% */
+            height: 400px;
+        }
+
+        /* 當圖表位於第二行及以後時，設置為 100% 寬度 */
+        .grafana-container iframe.full-width {
+            width: 100%;  /* 設置為 100% 寬度 */
+        }
+    </style>
+</head>
+
+<body>
+  <!-- 頁面標題 -->
+  <h1>數據模型區塊</h1>
+
+  <!-- 導覽列 -->
+  <nav>
+    <ul>
+        <li><a href="web_brickeyehome_user.html">首頁</a></li>
+        <li><a href="admin-dashboard.html">人員管理系統</a></li>
+        <li><a href="web_IDTime_user.html">搜尋</a></li>
+        <li><a href="web_quantity_user.html">品質篩檢</a></li>
+        <li><a href="web_model_user.html">數據模型</a></li>
+        <li><a href="web_graph_user.html">儀表板</a></li>
+        <li><a href="logout.html">登出</a></li>
+    </ul>
+</nav>
+
+  <!-- 數據模型圖表 -->
+  <h2>數據模型</h2>
+  <div class="grafana-container">
+    <!-- 第一和第二個圖表放在同一行 -->
+    <iframe id="grafana-iframe" frameborder="0"></iframe>
+    <iframe id="grafana-iframe2" frameborder="0"></iframe>
+  </div>
+
+  <!-- 設置 Grafana 的嵌入連結 -->
+  <script>
+    const grafanaUrl = `http://localhost:8088/d-solo/ce7rmx79zarcwa/model2?orgId=1&from=1734919271637&to=1734940871637&timezone=browser&refresh=auto&panelId=1&__feature.dashboardSceneSolo`;
+    document.getElementById('grafana-iframe').src = grafanaUrl;
+
+    const grafanaUrl2 = `http://localhost:8088/d-solo/ee7rlzr7db9xcf/model?orgId=1&from=1734919271637&to=1734940871637&timezone=browser&tab=queries&refresh=auto&panelId=1&__feature.dashboardSceneSolo`;
+    document.getElementById('grafana-iframe2').src = grafanaUrl2;
+  </script>
+
+  <!-- 第三 Grafana 圖表 -->
+  <div class="grafana-container">
+    <!-- 第三個圖表放在新的一行，設為 100% 寬度 -->
+    <iframe id="grafana-iframe3" class="full-width" frameborder="0"></iframe>
+  </div>
+
+  <!-- 設置 Grafana 的嵌入連結 -->
+  <script>
+    // const grafanaUrl3 = `http://localhost:8088/d-solo/de7ymk0f8afb4e/new-dashboard?orgId=1&from=1735088700755&to=1735110300755&timezone=browser&panelId=1&__feature.dashboardSceneSolo`;
+    const grafanaUrl3 = `http://localhost:8088/d-solo/ce7rmx79zarcwa/model2?orgId=1&from=1734919271637&to=1734940871637&timezone=browser&refresh=auto&panelId=1&__feature.dashboardSceneSolo`;
+    document.getElementById('grafana-iframe3').src = grafanaUrl3;
+  </script>
+
+  <!-- 第四 Grafana 圖表 -->
+  <div class="grafana-container">
+    <!-- 第四個圖表放在新的一行，設為 100% 寬度 -->
+    <iframe id="grafana-iframe4" class="full-width" frameborder="0"></iframe>
+  </div>
+
+  <!-- 設置 Grafana 的嵌入連結 -->
+  <script>
+    const grafanaUrl4 = `http://localhost:8088/d-solo/fe82c6cd7pedcc/new-dashboard?orgId=1&from=1735178395373&to=1735199995373&timezone=browser&panelId=1&__feature.dashboardSceneSolo`;
+    document.getElementById('grafana-iframe4').src = grafanaUrl4;
+  </script>
+
+  <!-- 引入 Flatpickr 日期選擇器 -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <!-- 日期選擇器 -->
+  <script>
+    flatpickr("#datepicker", {
+      mode: "range", // 啟用範圍選擇模式
+      enableTime: true, // 啟用時間選擇
+      dateFormat: "Y-m-d H:i", // 格式化日期與時間顯示
+      time_24hr: true, // 24 小時制
+      onChange: function(selectedDates, dateStr, instance) {
+        if (selectedDates.length === 2) {
+          let from = new Date(selectedDates[0]).getTime();
+          let to = new Date(selectedDates[1]).getTime();
+          
+          // 更新 Grafana iframe 的 URL，控制時間範圍
+          let grafanaIframe = document.getElementById("grafana-iframe");
+          let grafanaSrc = `http://localhost:8088/d-solo/ae6ks2hlkywaoa/fde5fef?orgId=1&from=${from}&to=${to}&timezone=browser&panelId=1&__feature.dashboardSceneSolo`;
+          grafanaIframe.src = grafanaSrc;  // 刷新 iframe 內容
+        }
+      }
+    });
+  </script>
+
+  <!-- 引入其他外部 JavaScript -->
+  <script src="Main.js"></script>
+  <script src="ID.js"></script>
+  <script src="Time.js"></script>
+
+</body>
+</html>

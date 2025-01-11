@@ -1,0 +1,29 @@
+每五分鐘缺陷品數量(超標)
+
+SELECT 
+    UNIX_TIMESTAMP(detection_time) - UNIX_TIMESTAMP(detection_time) % 300 AS time,  -- 返回 Unix 时间戳，并命名为 'time'
+    COUNT(*) AS 每五分鐘缺陷超標
+FROM 
+    products
+WHERE 
+    quality = '劣質品'
+GROUP BY 
+    UNIX_TIMESTAMP(detection_time) - UNIX_TIMESTAMP(detection_time) % 300
+HAVING 
+    每五分鐘缺陷超標 >= 20
+ORDER BY 
+    time;
+
+
+
+SELECT 
+    UNIX_TIMESTAMP(detection_time) - UNIX_TIMESTAMP(detection_time) % 300 AS time,  -- 返回 Unix 时间戳，并命名为 'time'
+    COUNT(*) AS 每五分鐘缺陷總數
+FROM 
+    products
+WHERE 
+    quality = '劣質品'
+GROUP BY 
+    UNIX_TIMESTAMP(detection_time) - UNIX_TIMESTAMP(detection_time) % 300
+ORDER BY 
+    time;

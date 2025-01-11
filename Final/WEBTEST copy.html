@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品檢查項目篩選</title>
+    <link rel="stylesheet" href="WEBTEST.css">
+
+</head>
+
+<body>
+  <h1>產品檢查項目</h1>
+  <!-- 導覽列 -->
+  <nav>
+    <ul>
+        <li><a href="web_brickeyehome.html">首頁</a></li>
+        <li><a href="web_graph.html">儀錶版</a></li>
+        <li><a href="web_IDTime.html">搜尋</a></li>
+        <li><a href="web_quantity.html">品質篩檢</a></li>
+        <li><a href="../system_administrator\admin-dashboard.html">人員管理系統</a></li>
+        <li><a href="logout.html">登出</a></li>
+    </ul>
+</nav>
+
+  <!-- 第一Grafana圖表 -->
+  <h2>最近一小時缺陷數</h2>
+  <iframe 
+    id="grafana-iframe-one-hour" 
+    width="100%" 
+    height="400" 
+    frameborder="0">
+  </iframe>
+  
+  <!-- 第二Grafana圖表 -->
+  <h2>六小時內超標缺陷(每五分鐘缺陷數)</h2>
+  <iframe 
+    id="grafana-iframe-six-hours" 
+    width="100%" 
+    height="400" 
+    frameborder="0">
+  </iframe>
+  
+  <!-- 第三Grafana圖表 -->
+  <h2>最近24小時缺陷數</h2>
+  <iframe 
+    id="grafana-iframe-twenty-four-hours" 
+    width="100%" 
+    height="400" 
+    frameborder="0">
+  </iframe>
+
+  <script>
+    // 动态计算时间范围
+    const currentTime = Date.now(); // 当前时间（毫秒）
+    const oneHourAgo = currentTime - 60 * 60 * 1000; // 一小时前
+    const sixHoursAgo = currentTime - 6 * 60 * 60 * 1000; // 六小时前
+    const twentyFourHoursAgo = currentTime - 24 * 60 * 60 * 1000; // 二十四小时前
+    
+  
+    // 设置各个 iframe 的链接
+    document.getElementById('grafana-iframe-one-hour').src = 
+      `http://localhost:8088/d-solo/de75hzjd19d6of/ee4e6de?orgId=1&from=${oneHourAgo}&to=${currentTime}&timezone=browser&panelId=1&refresh=5s&__feature.dashboardSceneSolo`;
+  
+    document.getElementById('grafana-iframe-six-hours').src = 
+      `http://localhost:8088/d-solo/ce75bgkb3k740c/a6c3f59?orgId=1&from=${sixHoursAgo}&to=${currentTime}&timezone=browser&panelId=1&refresh=5s&__feature.dashboardSceneSolo`;
+  
+    document.getElementById('grafana-iframe-twenty-four-hours').src = 
+      `http://localhost:8088/d-solo/ae6ks2hlkywaoa/fde5fef?orgId=1&from=${twentyFourHoursAgo}&to=${currentTime}&timezone=browser&panelId=1&refresh=5s&__feature.dashboardSceneSolo`;
+  </script>
+  
+    
+  <!-- 日期选择器 -->
+  <div style="margin-bottom: 20px;">
+    <label for="datepicker">選擇日期範圍:</label>
+    <input type="text" id="datepicker" placeholder="選擇開始與結束日期與時間" style="padding: 5px; width: 300px;">
+  </div>
+  
+  <h2>缺陷時段查詢</h2>
+  <!-- 第四Grafana 图表 -->
+  <iframe id="grafana-iframe" 
+  width="100%" 
+  height="400" 
+  frameborder="0">
+  </iframe>
+
+  <script>
+  // 设置 Grafana 的嵌入链接
+  const grafanaUrl = `http://localhost:8088/d-solo/ae6ks2hlkywaoa/fde5fef?orgId=1&from=${twentyFourHoursAgo}&to=${currentTime}&timezone=browser&panelId=1&__feature.dashboardSceneSolo`;
+
+  // 动态设置 iframe 的 src 属性
+  document.getElementById('grafana-iframe').src = grafanaUrl;
+  </script>
+
+    
+  
+  <!-- 引入 Flatpickr -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  
+  <!-- 日期选择器 -->
+  <!-- <input type="text" id="datepicker" placeholder="选择日期范围" /> -->
+  
+  <script>
+    // 使用 flatpickr 初始化日期选择器
+    flatpickr("#datepicker", {
+      mode: "range", // 启用范围选择模式
+      enableTime: true, // 启用时间选择
+      dateFormat: "Y-m-d H:i", // 格式化日期与时间显示
+      time_24hr: true, // 24 小时制
+      onChange: function(selectedDates, dateStr, instance) {
+        if (selectedDates.length === 2) { // 确保选择了开始和结束日期与时间
+          // 获取选中的开始和结束时间的时间戳
+          let from = new Date(selectedDates[0]).getTime();
+          let to = new Date(selectedDates[1]).getTime();
+  
+          // 更新 Grafana iframe 的 URL，控制时间范围
+          let grafanaIframe = document.getElementById("grafana-iframe");
+          let grafanaSrc = `http://localhost:8088/d-solo/ae6ks2hlkywaoa/fde5fef?orgId=1&from=${from}&to=${to}&timezone=browser&panelId=1&__feature.dashboardSceneSolo`;
+          grafanaIframe.src = grafanaSrc;  // 刷新 iframe 内容
+        }
+      }
+    });
+  </script>
+  
+
+<!-- 新增搜尋產品ID的輸入框和按鈕 -->
+<div>
+    <input type="text" id="productId" placeholder="輸入產品ID" />
+    <button id="searchProductBtn">搜尋產品</button>
+</div>
+
+<h3>篩檢資訊</h3>
+
+<div id="totalCount">正在加載...</div>
+<div id="goodCount">正在加載...</div>
+<div id="defectiveCount">正在加載...</div>
+<div id="defectiveRate">正在加載...</div>
+
+<!-- 新增時間範圍搜尋的輸入框 -->
+<div>
+    <label for="startTime">開始時間：</label>
+    <input type="datetime-local" id="startTime" />
+
+    <label for="endTime">結束時間：</label>
+    <input type="datetime-local" id="endTime" />
+
+    <button id="timeSearchBtn">搜尋</button>
+</div>
+<br>
+<!-- 清除按钮 -->
+<button id="clear-btn">清除資料</button>
+<br>
+
+<div id="searchResult">
+  <table>
+    <thead>
+      <tr>
+        <th>產品ID</th>
+        <th>品質</th>
+        <th>缺陷</th>
+        <th>檢測時間</th>
+        <th>圖片資料</th>
+      </tr>
+    </thead>
+    <tbody id="resultTableBody">
+      <!-- 查詢結果將在此動態插入 -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  
+  async function fetchProductCount() {
+    try {
+      const response = await fetch('http://localhost:3001/api/product-counts');
+      const data = await response.json();
+      document.getElementById('totalCount').innerText = `產品總數：${data.good+data.defective}`;
+      document.getElementById('goodCount').innerText = `良品總數：${data.good}`;
+      document.getElementById('defectiveCount').innerText = `劣質品總數：${data.defective}`;
+      document.getElementById('defectiveRate').innerText = `劣質品比率：${data.defectiveRate}%`;
+    } catch (error) {
+      console.error('獲取數據失敗', error);
+      document.getElementById('goodCount').innerText = '無法獲取數據';
+      document.getElementById('defectiveCount').innerText = '無法獲取數據';
+      document.getElementById('defectiveRate').innerText = '無法獲取數據';
+    }
+  }
+
+  fetchProductCount();
+</script>
+<br>
+
+<h3>篩選條件</h3>
+    <div class="quality-container">
+        <label for="quality">品質:</label>
+        <select id="quality">
+            <option value="">所有</option>
+            <option value="良品">良品</option>
+            <option value="劣質品">劣質品</option>
+        </select>
+    </div>
+    
+
+    <h4>缺陷:</h4>
+    <div class="checkbox-group">
+        <label><input type="checkbox" value="裁切" id="defect-cut">裁切</label>
+        <label><input type="checkbox" value="划痕" id="defect-scratch">划痕</label>
+        <label><input type="checkbox" value="汙點" id="defect-stain">汙點</label>
+        <label><input type="checkbox" value="顏色汙染" id="defect-color">顏色汙染</label>
+        <label><input type="checkbox" value="大範圍污痕" id="defect-pollution">大範圍污痕</label>
+    </div>
+    <br>
+    <!-- 添加选择开始和结束记录的输入框 -->
+    <div class="filter-container">
+        <label for="start-Time">開始時間:</label>
+        <input type="datetime-local" id="start-Time">
+
+        <label for="end-Time">結束時間:</label>
+        <input type="datetime-local" id="end-Time">
+        <label for="start">起始資料:</label>
+        <input type="number" id="start" name="start" min="0" value="0">
+    
+        <label for="end">結束資料:</label>
+        <input type="number" id="end" name="end" min="1" value="50">
+        <br>
+        
+        <button id="filterBtn">篩選</button>
+    </div>
+    
+
+    <div id="countting">正在加載...</div>
+    <script>
+        async function fetchProductCount() {
+          try {
+            const response = await fetch('http://localhost:3001/api/product-count');
+            const data = await response.json();
+            document.getElementById('countting').innerText = `符合條件產品數量:${data.count}`;
+          } catch (error) {
+            console.error('獲取數據失敗', error);
+            document.getElementById('countting').innerText = '無法獲取數據';
+          }
+        }
+    
+        // 加載數據
+        fetchProductCount();
+      </script>
+    <!-- <div id="countting">正在加載...</div> -->
+
+
+    <h3>檢查項目列表</h3>
+
+    <table id="productsTable">
+        <thead>
+            <tr>
+                <th>產品ID</th>
+                <th>品質</th>
+                <th>缺陷</th>
+                <th>檢測時間</th>
+                <th>圖片</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 產品資料將會顯示在這裡 -->
+        </tbody>
+    </table>
+
+
+
+</script>
+
+
+
+
+    <script src="Main.js"></script>
+    <script src="ID.js"></script>
+    <script src="Time.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+/* 設定整個頁面的字型和背景顏色 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #C0C0C0; /* 銀灰色背景 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh; /* 使頁面高度至少為視窗高度 */
+}
+
+/* 設定標題樣式 */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* 表單的樣式 */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 300px; /* 控制表單寬度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form label {
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 16px;
+}
+
+form input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* 設定載入使用者資料按鈕的樣式 */
+#loadUsers {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#loadUsers:hover {
+    background-color: #007b9a;
+}
+
+/* 表格樣式 */
+table {
+    width: 80%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    text-align: center;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+td button {
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+td .saveBtn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+td .deleteBtn {
+    background-color: #f44336;
+    color: white;
+}
+
+td .saveBtn:hover {
+    background-color: #45a049;
+}
+
+td .deleteBtn:hover {
+    background-color: #e53935;
+}
+
+
+/* 導覽列樣式 */
+nav {
+    background-color: #333;
+    padding: 10px;
+    width: 100%;  /* 使導航欄佔據整個寬度 */
+    display: flex;
+    justify-content: center;  /* 水平置中導航項目 */
+    margin-bottom: 20px;      /* 讓導航列與下方內容有適當間距 */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;  /* 水平排列導航項目 */
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* style.css(登出按鈕右上角 */
+#logoutContainer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#logoutButton {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#logoutButton:hover {
+    background-color: #cc0000;
+}
